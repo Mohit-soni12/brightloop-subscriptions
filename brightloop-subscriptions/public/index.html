@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brightloop Software — Subscription Management Platform</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- LEFT SIDEBAR -->
+  <!-- ========================================== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-badge">B</div>
+      <div class="brand-info">
+        <h1>Brightloop</h1>
+        <p>Subscriptions</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a class="nav-link active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-link" data-tab="subscriptions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <span>Subscriptions</span>
+      </a>
+      <a class="nav-link" data-tab="invoices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/><path d="m9 15 2 2 4-4"/></svg>
+        <span>Invoices &amp; Billing</span>
+      </a>
+      <a class="nav-link" data-tab="payments">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        <span>Payments</span>
+      </a>
+      <a class="nav-link" data-tab="catalog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+        <span>Products &amp; Plans</span>
+      </a>
+      <a class="nav-link" data-tab="discounts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+        <span>Discounts &amp; Taxes</span>
+      </a>
+      <a class="nav-link" data-tab="portal" id="sidebarPortalLink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        <span>Customer View</span>
+      </a>
+    </nav>
+
+    <!-- Bottom Profile Card -->
+    <div class="sidebar-footer">
+      <div class="persona-card">
+        <div class="persona-avatar" id="sidebarAvatar">A</div>
+        <div class="persona-meta">
+          <div class="persona-name" id="sidebarUserName">Alex Vance</div>
+          <div class="persona-role" id="sidebarUserRole">Admin Account</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================== -->
+  <!-- MAIN AREA -->
+  <!-- ========================================== -->
+  <div class="main-wrapper">
+    <!-- Super Simple Top Header -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="view-title" id="pageTitle">Dashboard</span>
+      </div>
+
+      <!-- Super Simple 3-Option Switcher -->
+      <div class="topbar-right">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">View Mode:</span>
+        <div class="persona-pills" id="topPersonaPills">
+          <button class="pill-btn active" data-role="admin">Admin</button>
+          <button class="pill-btn" data-role="staff">Staff</button>
+          <button class="pill-btn" data-role="customer">Customer</button>
+        </div>
+        <button class="btn btn-outline btn-sm" id="btnAddStaffModal" style="margin-left: 0.5rem;">+ Add Staff</button>
+      </div>
+    </header>
+
+    <main class="page-container">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: DASHBOARD -->
+      <!-- ========================================== -->
+      <div id="tab-dashboard" class="tab-pane active">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">Business Overview</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Live recurring revenue metrics, subscription counts, and receivables.</p>
+          </div>
+          <div id="slaBenchmark" style="background: var(--success-bg); color: var(--success); font-size: 0.8rem; font-weight: 700; padding: 0.45rem 1rem; border-radius: 9999px; border: 1px solid var(--success-border); display: flex; align-items: center; gap: 0.4rem;">
+            <span id="slaText">Query Latency: &lt; 1ms (SLA &lt; 2s Passed)</span>
+          </div>
+        </div>
+
+        <!-- 4 KPI Metrics -->
+        <div class="metrics-row">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Active Subscriptions</span>
+              <div class="metric-icon-box" style="background:#eef2ff; color:#6366f1;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              </div>
+            </div>
+            <div class="metric-val" style="color: var(--primary);" id="kpiActiveSubs">0</div>
+            <div class="metric-sub">Active recurring contracts</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Revenue Collected</span>
+              <div class="metric-icon-box" style="background:#ecfdf5; color:#10b981;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              </div>
+            </div>
+            <div class="metric-val" style="color: var(--success);" id="kpiCollected">$0.00</div>
+            <div class="metric-sub">Cleared payments</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Outstanding Owed</span>
+              <div class="metric-icon-box" style="background:#fffbeb; color:#f59e0b;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="metric-val" style="color: var(--warning);" id="kpiOutstanding">$0.00</div>
+            <div class="metric-sub">Awaiting payment</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Overdue Invoices</span>
+              <div class="metric-icon-box" style="background:#fef2f2; color:#ef4444;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+            </div>
+            <div class="metric-val" style="color: var(--danger);" id="kpiOverdue">$0.00</div>
+            <div class="metric-sub" id="kpiOverdueCount">0 overdue invoices</div>
+          </div>
+        </div>
+
+        <!-- Overdue Chase List -->
+        <div class="content-card">
+          <div class="content-card-header">
+            <div class="content-card-title">
+              <span>Overdue Invoices — Chase List</span>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Invoices requiring payment follow-up</span>
+          </div>
+          <div class="table-responsive">
+            <table id="tableOverdueList">
+              <thead>
+                <tr>
+                  <th>Invoice #</th>
+                  <th>Customer / Company</th>
+                  <th>Due Date</th>
+                  <th>Aging Status</th>
+                  <th>Total Invoiced</th>
+                  <th>Balance Due</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: SUBSCRIPTIONS & QUOTES -->
+      <!-- ========================================== -->
+      <div id="tab-subscriptions" class="tab-pane" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">Subscriptions &amp; Quotes</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Manage lifecycle: Draft &rarr; Quotation &rarr; Confirmed &rarr; Active &rarr; Closed.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openNewSubModal()">
+            + New Quote / Subscription
+          </button>
+        </div>
+
+        <div class="content-card">
+          <div class="toolbar">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">Status:</span>
+              <select id="filterSubStatus" class="form-input" style="width: auto; padding: 0.35rem 0.75rem;">
+                <option value="ALL">All Statuses</option>
+                <option value="Draft">Draft</option>
+                <option value="Quotation">Quotation</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Active">Active</option>
+                <option value="Paused">Paused</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+            <div class="search-box">
+              <input type="text" id="searchSubsInput" placeholder="Search customer or sub #...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table id="tableSubscriptions">
+              <thead>
+                <tr>
+                  <th>Subscription #</th>
+                  <th>Customer / Company</th>
+                  <th>Plan</th>
+                  <th>Cadence</th>
+                  <th>Start Date</th>
+                  <th>Next Billing</th>
+                  <th>Status</th>
+                  <th>Total Value</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: INVOICES & BILLING DAY -->
+      <!-- ========================================== -->
+      <div id="tab-invoices" class="tab-pane" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">Billing Day &amp; Invoices</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">One-click batch billing for all active subscriptions due today.</p>
+          </div>
+          <button class="btn btn-success" id="btnTriggerBillingDay" onclick="handleBillingDay()">
+            Run Billing Day
+          </button>
+        </div>
+
+        <div id="billingDayBanner" style="display:none; margin-bottom: 1.25rem; background: var(--success-bg); border: 1px solid var(--success-border); padding: 1rem 1.25rem; border-radius: var(--radius); font-size: 0.88rem; color: #065f46;">
+        </div>
+
+        <div class="content-card">
+          <div class="toolbar">
+            <span style="font-weight: 700; color: var(--text-main); font-size: 0.9rem;">Invoice History</span>
+            <div class="search-box">
+              <input type="text" id="searchInvoicesInput" placeholder="Search invoice # or customer...">
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table id="tableInvoices">
+              <thead>
+                <tr>
+                  <th>Invoice #</th>
+                  <th>Sub #</th>
+                  <th>Customer</th>
+                  <th>Billing Period</th>
+                  <th>Due Date</th>
+                  <th>Subtotal</th>
+                  <th>Tax</th>
+                  <th>Discount</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: PAYMENTS -->
+      <!-- ========================================== -->
+      <div id="tab-payments" class="tab-pane" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">Payments Ledger</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Record payments across bank wire, credit cards, or cash.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openRecordPaymentModal()">
+            + Record Payment
+          </button>
+        </div>
+
+        <div class="content-card">
+          <div class="table-responsive">
+            <table id="tablePayments">
+              <thead>
+                <tr>
+                  <th>Receipt #</th>
+                  <th>Invoice #</th>
+                  <th>Customer</th>
+                  <th>Method</th>
+                  <th>Date Settled</th>
+                  <th>Amount</th>
+                  <th>Reference</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: PRODUCTS & PLANS -->
+      <!-- ========================================== -->
+      <div id="tab-catalog" class="tab-pane" style="display: none;">
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.3rem; font-weight: 800;">Products &amp; Plans</h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">Base software pricing, variant modifiers (e.g. Odoo brand +$560), and plan cadences.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+          <div class="content-card">
+            <div class="content-card-header">
+              <div class="content-card-title">Products &amp; Variants</div>
+            </div>
+            <div class="table-responsive">
+              <table id="tableProducts">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Type</th>
+                    <th>Base Price</th>
+                    <th>Configured Variants</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <div class="content-card-title">Subscription Plans</div>
+            </div>
+            <div class="table-responsive">
+              <table id="tablePlans">
+                <thead>
+                  <tr>
+                    <th>Plan Name</th>
+                    <th>Cadence</th>
+                    <th>Cost</th>
+                    <th>Policies</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 6: DISCOUNTS & TAXES -->
+      <!-- ========================================== -->
+      <div id="tab-discounts" class="tab-pane" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800;">Discounts &amp; Tax Rules</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Admin rules automatically calculated on recurring invoices.</p>
+          </div>
+          <button class="btn btn-primary" onclick="document.getElementById('modalDiscount').classList.add('open')">
+            + Create Discount
+          </button>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+          <div class="content-card">
+            <div class="content-card-header">
+              <div class="content-card-title">Active Discounts</div>
+            </div>
+            <div class="table-responsive">
+              <table id="tableDiscounts">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Value</th>
+                    <th>Thresholds</th>
+                    <th>Uses</th>
+                    <th>Validity</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="content-card">
+            <div class="content-card-header">
+              <div class="content-card-title">Tax Brackets</div>
+            </div>
+            <div class="table-responsive">
+              <table id="tableTaxes">
+                <thead>
+                  <tr>
+                    <th>Tax Name</th>
+                    <th>Rate (%)</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 7: CUSTOMER PORTAL -->
+      <!-- ========================================== -->
+      <div id="tab-portal" class="tab-pane" style="display: none;">
+        <div class="content-card" style="background: linear-gradient(135deg, #3730a3, #4f46e5); color: #fff; border: none;">
+          <div style="padding: 2rem;">
+            <h2 style="color: #fff; font-size: 1.5rem; font-weight: 800;">Customer Portal</h2>
+            <p style="opacity: 0.9; font-size: 0.9rem; margin-top: 0.35rem; max-width: 700px;">
+              View active subscriptions, renewal dates, and pay invoices online without emailing anyone.
+            </p>
+            <div style="margin-top: 1rem; font-size: 0.85rem; background: rgba(255,255,255,0.15); display: inline-block; padding: 0.4rem 1rem; border-radius: 9999px;">
+              Logged In: <strong id="portalCustomerName">Elena Rostova (GlobalTech Enterprise)</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="content-card-header"><div class="content-card-title">My Subscriptions</div></div>
+          <div class="table-responsive">
+            <table id="tablePortalSubs">
+              <thead>
+                <tr>
+                  <th>Subscription #</th>
+                  <th>Plan</th>
+                  <th>Start Date</th>
+                  <th>Next Renewal</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="content-card">
+          <div class="content-card-header"><div class="content-card-title">My Invoices</div></div>
+          <div class="table-responsive">
+            <table id="tablePortalInvoices">
+              <thead>
+                <tr>
+                  <th>Invoice #</th>
+                  <th>Period</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: NEW QUOTE / SUBSCRIPTION -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modalNewSub">
+    <div class="modal-container modal-lg">
+      <div class="modal-header-bar">
+        <h3>Create Quotation / Subscription</h3>
+        <button class="btn btn-outline btn-sm closeModal">&times;</button>
+      </div>
+      <div class="modal-inner">
+        <form id="formNewSub">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Customer Account</label>
+              <select id="subCustomerSelect" class="form-input" required></select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Subscription Plan</label>
+              <select id="subPlanSelect" class="form-input" required></select>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Initial Lifecycle State</label>
+              <select id="subInitialStatus" class="form-input">
+                <option value="Draft">Draft (Internal preparation)</option>
+                <option value="Quotation">Quotation (Sent offer to customer)</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Active">Active (Contract running)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Payment Terms</label>
+              <select id="subPaymentTerms" class="form-input">
+                <option value="Due on Receipt">Due on Receipt</option>
+                <option value="Net 15">Net 15</option>
+                <option value="Net 30" selected>Net 30</option>
+                <option value="Net 60">Net 60</option>
+              </select>
+            </div>
+          </div>
+
+          <hr style="margin: 1.25rem 0; border: none; border-top: 1px solid var(--border);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <h4 style="font-size: 0.95rem; font-weight: 700;">Product Line Items</h4>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: 700;">Variant Pricing Computed Live</span>
+          </div>
+
+          <div id="subLineItemsContainer">
+            <div class="form-grid-2 sub-line-row" style="grid-template-columns: 2fr 2fr 1fr 1fr; align-items: end; margin-bottom: 0.5rem;">
+              <div class="form-field" style="margin-bottom: 0;">
+                <label class="form-label">Product</label>
+                <select class="form-input sub-line-product" required></select>
+              </div>
+              <div class="form-field" style="margin-bottom: 0;">
+                <label class="form-label">Variant (e.g. Odoo +$560)</label>
+                <select class="form-input sub-line-variant"></select>
+              </div>
+              <div class="form-field" style="margin-bottom: 0;">
+                <label class="form-label">Qty</label>
+                <input type="number" class="form-input sub-line-qty" value="1" min="1" required>
+              </div>
+              <div class="form-field" style="margin-bottom: 0;">
+                <label class="form-label">Tax</label>
+                <select class="form-input sub-line-tax"></select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Receipt Calculation Box -->
+          <div class="receipt-calculator">
+            <div class="receipt-row">
+              <span style="color: var(--text-muted);">Base Product Price:</span>
+              <span id="calcBasePrice">$499.00</span>
+            </div>
+            <div class="receipt-row">
+              <span style="color: var(--text-muted);">Variant Modifier (e.g. Odoo Brand):</span>
+              <span id="calcVariantModifier" style="color: var(--primary); font-weight: 700;">+$560.00</span>
+            </div>
+            <div class="receipt-row">
+              <span style="color: var(--text-muted);">Effective Unit Price:</span>
+              <span id="calcUnitPrice" style="font-weight: 700;">$1,059.00 (x1)</span>
+            </div>
+            <div class="receipt-row">
+              <span style="color: var(--text-muted);">Calculated Tax (18% GST):</span>
+              <span id="calcEstTax">+$190.62</span>
+            </div>
+            <div class="receipt-row receipt-total-row">
+              <span>Estimated Contract Total:</span>
+              <span id="calcTotalAmount">$1,249.62</span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer-bar">
+        <button class="btn btn-outline closeModal">Cancel</button>
+        <button class="btn btn-primary" id="btnSubmitNewSub">Save Subscription</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: RECORD PAYMENT -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modalPayment">
+    <div class="modal-container">
+      <div class="modal-header-bar">
+        <h3>Record Payment</h3>
+        <button class="btn btn-outline btn-sm closeModal">&times;</button>
+      </div>
+      <div class="modal-inner">
+        <form id="formRecordPayment">
+          <div class="form-field">
+            <label class="form-label">Target Invoice</label>
+            <select id="paymentInvoiceSelect" class="form-input" required></select>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Payment Amount ($)</label>
+              <input type="number" step="0.01" id="paymentAmountInput" class="form-input" required>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Method</label>
+              <select id="paymentMethodSelect" class="form-input">
+                <option value="Bank Transfer">Bank Wire</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="Online / Stripe">Online / Stripe</option>
+                <option value="Cash">Cash / Cheque</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Payment Date</label>
+            <input type="date" id="paymentDateInput" class="form-input" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Reference / Note</label>
+            <input type="text" id="paymentNoteInput" class="form-input" placeholder="e.g. Wire transfer #TX-908123">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer-bar">
+        <button class="btn btn-outline closeModal">Cancel</button>
+        <button class="btn btn-success" id="btnSubmitPayment">Save Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: PRINTABLE INVOICE VIEW -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modalInvoiceView">
+    <div class="modal-container modal-lg">
+      <div class="modal-header-bar no-print">
+        <h3>Invoice Preview</h3>
+        <div style="display: flex; gap: 0.5rem;">
+          <button class="btn btn-primary btn-sm" onclick="window.print()">Print / Save PDF</button>
+          <button class="btn btn-outline btn-sm closeModal">&times;</button>
+        </div>
+      </div>
+      <div class="modal-inner" id="printableInvoiceArea"></div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD STAFF MEMBER (ADMIN ONLY) -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modalAddStaff">
+    <div class="modal-container">
+      <div class="modal-header-bar">
+        <h3>Add Staff Member</h3>
+        <button class="btn btn-outline btn-sm closeModal">&times;</button>
+      </div>
+      <div class="modal-inner">
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Rule: Only admins can add staff. Password must be &gt;8 chars with uppercase, lowercase, and special character.
+        </p>
+        <form id="formAddStaff">
+          <div class="form-field">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="staffNameInput" class="form-input" placeholder="e.g. Jessica Taylor" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="staffEmailInput" class="form-input" placeholder="jessica@brightloop.com" required>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Password</label>
+            <input type="text" id="staffPasswordInput" class="form-input" value="BrightStaff@2026!" required>
+            <small style="color: var(--text-muted); font-size: 0.75rem;">Must be &gt;8 chars, uppercase, lowercase, special char.</small>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Role</label>
+            <select id="staffRoleSelect" class="form-input">
+              <option value="staff">Staff (Sales &amp; Day-to-day)</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer-bar">
+        <button class="btn btn-outline closeModal">Cancel</button>
+        <button class="btn btn-primary" id="btnSubmitAddStaff">Create Staff</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: CREATE DISCOUNT RULE (ADMIN ONLY) -->
+  <!-- ========================================== -->
+  <div class="modal-backdrop" id="modalDiscount">
+    <div class="modal-container">
+      <div class="modal-header-bar">
+        <h3>Create Discount Rule</h3>
+        <button class="btn btn-outline btn-sm closeModal">&times;</button>
+      </div>
+      <div class="modal-inner">
+        <form id="formDiscount">
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Code</label>
+              <input type="text" id="discCode" class="form-input" placeholder="ENTERPRISE30" required>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Name</label>
+              <input type="text" id="discName" class="form-input" placeholder="Enterprise 30% Off" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Type</label>
+              <select id="discType" class="form-input">
+                <option value="percentage">Percentage (%)</option>
+                <option value="fixed">Fixed ($)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Value</label>
+              <input type="number" step="0.01" id="discVal" class="form-input" placeholder="30" required>
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label class="form-label">Min Qty</label>
+              <input type="number" id="discMinQty" class="form-input" value="5">
+            </div>
+            <div class="form-field">
+              <label class="form-label">Max Uses</label>
+              <input type="number" id="discMaxUses" class="form-input" value="50">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer-bar">
+        <button class="btn btn-outline closeModal">Cancel</button>
+        <button class="btn btn-primary" id="btnSubmitDiscount">Save Discount</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Box -->
+  <div id="toastBox"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
